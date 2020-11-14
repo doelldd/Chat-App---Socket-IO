@@ -1,5 +1,3 @@
-# Chat-App---Socket-IO
-
 Dustin Doell - 30061243
 https://github.com/doelldd/Chat-App---Socket-IO
 
