@@ -6,6 +6,14 @@ body {
   font: 13px Helvetica, Arial;
 }
 
+h1 {
+  align-self: center;
+}
+
+.d-none {
+  display: none;
+}
+
 #wrapper {
   background: #ffffff;
   border-style: solid;
@@ -25,8 +33,11 @@ body {
 }
 
 .sidebar-right {
-  background: rgb(206, 206, 255);
+  background: rgb(160 160 255);
   flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
 }
 
 form {
@@ -36,6 +47,7 @@ form {
   display: flex;
   flex-direction: row;
   height: 50px;
+  position: relative;
 }
 
 form input {
@@ -62,6 +74,7 @@ form button {
   overflow-x: hidden;
   padding: 24px;
   word-break: break-word;
+  background: gainsboro;
 }
 
 .message-wrapper {
@@ -111,10 +124,18 @@ form button {
   flex-grow: 1;
   flex-direction: column;
   list-style-type: none;
-  margin: 16px;
-  padding: 0;
+  margin: 0;
+  padding: 0 16px;
+  overflow-y: auto;
 }
 
 #users li {
   padding: 5px 10px;
+}
+
+#input-error-msg {
+  color: red;
+  position: absolute;
+  top: -35px;
+  left: 10px;
 }

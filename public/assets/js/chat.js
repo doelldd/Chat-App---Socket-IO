@@ -77,4 +77,17 @@
       }
     }
   });
+
+  socket.on('error', (msg) => {
+    const errormsg = document.getElementById('input-error-msg');
+    errormsg.classList.remove('d-none')
+    errormsg.innerText = msg;
+
+    setTimeout( () => {
+        errormsg.classList.add('d-none');
+        errormsg.innerText = '';
+      }, 
+      2000
+    );
+  });
 }

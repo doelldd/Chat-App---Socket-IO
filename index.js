@@ -11,16 +11,17 @@ let usernames = {};
 app.use(express.static('public'));
 
 io.on('connection', (socket) => {
-  console.log('saved user: ' + socket.handshake.query['saved_user']);
-  const savedUser = socket.handshake.query['saved_user'];
+  let savedUser = socket.handshake.query['saved_user'];
 
   if (!savedUser) {
     const randomUsername = faker.fake("{{random.word}}{{random.number}}");
-    console.log(randomUsername)
     usernames[randomUsername] = randomUsername;
     socket.username = randomUsername;
     socket.color = "black";
   } else {
+    if (Object.values(usernames).includes(savedUser)) {
+      savedUser = faker.fake("{{random.word}}{{random.number}}");
+    }
     usernames[savedUser] = savedUser;
     socket.username = savedUser;
     socket.color = "black";
@@ -31,48 +32,56 @@ io.on('connection', (socket) => {
     });
   }
 
-  console.log(usernames)
   socket.emit('username', socket.username);
   io.emit('users', Object.values(usernames));
   socket.emit('chat message', messages);
 
 
   socket.on('chat message', function(msg) {
-    // change username
-    if(msg.startsWith('/name')) {
-      const newUsername = msg.slice(6);
-      if (!Object.values(usernames).includes(newUsername)) {
-        delete usernames[socket.username];
-        usernames[newUsername] = newUsername;
+    if(msg.startsWith('/')) {
+      // change username
+      if(msg.startsWith('/name')) {
+        const newUsername = msg.slice(6);
+        if (!Object.values(usernames).includes(newUsername)) {
+          delete usernames[socket.username];
+          usernames[newUsername] = newUsername;
 
-        messages.map(x => {
-          if (x.username === socket.username) {
-            x.username = newUsername;
-          }
-        });
+          messages.map(x => {
+            if (x.username === socket.username) {
+              x.username = newUsername;
+            }
+          });
 
-        socket.username = newUsername;
-        socket.emit('username', newUsername);
-        io.emit('users', Object.values(usernames));
-        io.emit('chat message', messages);
-      } else {
-        console.log('name already exists')
-      }
-      return;
-    }
-
-    // change display color
-    if(msg.startsWith('/color')) {
-      const newColor = msg.slice(7);
-      socket.color = newColor;
-      messages.map(x => {
-        if (x.username === socket.username) {
-          x.color = socket.color;
+          socket.username = newUsername;
+          socket.emit('username', newUsername);
+          io.emit('users', Object.values(usernames));
+          io.emit('chat message', messages);
+        } else {
+          socket.emit('error', 'Name already exists');
         }
-      });
-      io.emit('chat message', messages);
-      return
-    }
+        return;
+      }
+
+      // change display color
+      if(msg.startsWith('/color')) {
+        const newColor = msg.slice(7);
+        if (newColor.match(/^[0-9A-F]{6}$/i)) {
+          socket.color = `#${newColor}`;
+          messages.map(x => {
+            if (x.username === socket.username) {
+              x.color = socket.color;
+            }
+          });
+          io.emit('chat message', messages);
+        } else {
+          socket.emit('error', 'Unknown Color');
+        }
+        return;
+      }
+
+      socket.emit('error', 'Unknown Command');
+      return;
+    };
 
 
 
