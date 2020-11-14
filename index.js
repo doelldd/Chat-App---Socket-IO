@@ -74,7 +74,7 @@ io.on('connection', (socket) => {
           });
           io.emit('chat message', messages);
         } else {
-          socket.emit('error', 'Unknown Color');
+          socket.emit('error', 'Unknown Color. Use Format RRGGBB.');
         }
         return;
       }
