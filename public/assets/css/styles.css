@@ -1,0 +1,120 @@
+body {
+  background: #f3f3f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 13px Helvetica, Arial;
+}
+
+#wrapper {
+  background: #ffffff;
+  border-style: solid;
+  border-color: #d6d6d6;
+  border-width: 0 1px;
+  height: calc(100vh - 2px);
+  display: flex;
+  max-width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.main-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sidebar-right {
+  background: rgb(206, 206, 255);
+  flex: 0 0 200px;
+}
+
+form {
+  border-style: solid;
+  border-color: #d6d6d6;
+  border-width: 2px 0;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+form input {
+  border: 0;
+  padding: 10px;
+  width: 90%;
+  margin-right: 0.5%;
+}
+
+form button {
+  width: 80px;
+  background: #8150fe;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+}
+
+.messages {
+  flex-grow: 1;
+  list-style-type: none;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px;
+  word-break: break-word;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-grow: 1;
+  margin: 12px 0;
+  max-width: 90%;
+}
+
+.message-wrapper:first-child {
+  margin-top: 0;
+}
+
+.message-wrapper.you {
+  justify-content: flex-end;
+  margin-left: 10%;
+}
+
+.message-wrapper.you .message {
+  background: rgb(139,96,224);
+  background: linear-gradient(90deg, rgba(139,96,224,1) 0%, rgba(129,80,254,1) 100%);
+  color: #ffffff;
+}
+
+.message {
+  border-radius: 14px;
+  background: #e9eff5;
+  padding: 12px 16px;
+}
+
+.message-header {
+  align-items: baseline;
+  display: flex;
+}
+
+.message-username {
+  font-weight: bold;
+  padding-right: 0.5rem;
+}
+
+.message-timestamp {
+  font-size: 0.7rem;
+}
+
+#users {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 16px;
+  padding: 0;
+}
+
+#users li {
+  padding: 5px 10px;
+}
