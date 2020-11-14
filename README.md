@@ -6,6 +6,6 @@ https://github.com/doelldd/Chat-App---Socket-IO
 Instructions to run in linux lab: 
 - App will run on port 3000 by default. 
 - If that port is already taken type in the console
-    export PORT=<new port number>
+    - export PORT=\<new port number\>
 - Run using command
-    node index.js
+    - node index.js
